@@ -1,4 +1,6 @@
-<x-layout>
-    <h1>Belajar Laravel</h1>
-    <a href="/list-fakultas">List Fakultas</a>
-</x-layout>
+    <x-layout>
+        <div>
+            <h1>Belajar Laravel</h1>
+            <a href="/fakultas">List Fakultas</a>
+        </div>
+    </x-layout>
