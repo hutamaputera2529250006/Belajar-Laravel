@@ -33,7 +33,7 @@ class FakultasController extends Controller
             'name' => $request->name_fakultas,
             'dekan' => $request->name_dekan
         ]);
-        return redirect('/fakultas');
+        return redirect('/fakultas')->with('success','data berhasil di simpan');
     }
 
     /**
@@ -63,7 +63,7 @@ class FakultasController extends Controller
             'name'=>$request->name_fakultas,
             'dekan'=> $request->name_dekan
         ]);
-        return redirect('/fakultas');
+        return redirect('/fakultas')->with('success','data berhasil di update');
     }
 
     /**
@@ -72,6 +72,6 @@ class FakultasController extends Controller
     public function destroy(Fakultas $fakulta)
     {
         $fakulta ->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','data berhasil di hapus');
     }
 }
