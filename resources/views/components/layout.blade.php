@@ -56,10 +56,13 @@
                         <a class="nav-link {{ request()->is('/') ? 'active bg-primary text-white' : '' }}" href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeis('fakultas.index') ? 'active bg-primary text-white' : '' }}" href="#">Fakultas</a>
+                        <a class="nav-link {{ request()->routeis('fakultas.index') ? 'active bg-primary text-white' : '' }}" href="/fakultas">Fakultas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang</a>
+                        <a class="nav-link {{ request()->routeis('prodi.index') ? 'active bg-primary text-white' : '' }}" href="/prodi/create">Tambah Prodi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeis('fakultas.create') ? 'active bg-primary text-white' : '' }}" href="/fakultas/create">Tambah Fakultas</a>
                     </li>
                 </ul>
             </div>
