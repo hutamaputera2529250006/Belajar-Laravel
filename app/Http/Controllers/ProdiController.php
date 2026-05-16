@@ -6,13 +6,16 @@ use App\Models\Fakultas;
 use App\Models\Prodi;
 use App\Http\Requests\StoreProdiRequest;
 use App\Http\Requests\UpdateProdiRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProdiController extends Controller
 {
 
     public function index()
     {
+        $prodi = Prodi::all();
 
+        return view('prodi.list-prodi', compact('prodi'));
     }
 
     /**
@@ -30,6 +33,18 @@ class ProdiController extends Controller
     public function store(StoreProdiRequest $request)
     {
         $validate = $request->safe();
+        
+        Storage::disk("public")->putFile("profile_kaprodi", $validate->file('photo_kaprodi'));
+
+        $filePath = Storage::disk("public")->putFile('profile_kaprodi',$validate->file('photo_kaprodi'));
+        Prodi::create([
+            'fakultas_id' => $validate->fakultas_id,
+            'nama_prodi' => $validate->nama_prodi,
+            'nama_kaprodi' => $validate->nama_kaprodi,
+            'photo_kaprodi' => $filePath
+        ]);
+
+        return redirect('/prodi')->with("Success", "Prodi Berhasil Ditambah");
     }
 
     /**
