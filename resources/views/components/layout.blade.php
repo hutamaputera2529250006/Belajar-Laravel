@@ -4,11 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? 'IF21' }}</title>
-
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    @vite([])
-
+    
     <style>
         [data-theme="dark"] {
             --bs-body-bg: #121212;
@@ -45,12 +43,6 @@
             <a class="navbar-brand fw-semibold" href="#">
                 💻 IF21
             </a>
-        @session('success')
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endsession
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
@@ -62,13 +54,16 @@
                         <a class="nav-link {{ request()->is('/') ? 'active bg-primary text-white' : '' }}" href="#">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeis('fakultas.index') ? 'active bg-primary text-white' : '' }}" href="/fakultas">Fakultas</a>
+                        <a class="nav-link {{ request()->routeIs('fakultas.index') ? 'active bg-primary text-white' : '' }}" href="/fakultas">Fakultas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeis('prodi.index') ? 'active bg-primary text-white' : '' }}" href="/prodi/create">Tambah Prodi</a>
+                        <a class="nav-link {{ request()->routeIs('prodi.index') ? 'active bg-primary text-white' : '' }}" href="/prodi">Prodi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeis('fakultas.create') ? 'active bg-primary text-white' : '' }}" href="/fakultas/create">Tambah Fakultas</a>
+                        <a class="nav-link {{ request()->routeIs('prodi.create') ? 'active bg-primary text-white' : '' }}" href="/prodi/create">Tambah Prodi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('fakultas.create') ? 'active bg-primary text-white' : '' }}" href="/fakultas/create">Tambah Fakultas</a>
                     </li>
                 </ul>
             </div>
@@ -80,6 +75,12 @@
 
     {{-- Konten Utama --}}
     <main class="container py-4">
+        @session('success')
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endsession
         {{ $slot }}
     </main>
 

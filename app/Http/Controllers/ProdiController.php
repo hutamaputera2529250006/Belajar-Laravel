@@ -32,19 +32,15 @@ class ProdiController extends Controller
      */
     public function store(StoreProdiRequest $request)
     {
-        $validate = $request->safe();
-        
-        Storage::disk("public")->putFile("profile_kaprodi", $validate->file('photo_kaprodi'));
+        $data = $request->validated(); // 
 
-        $filePath = Storage::disk("public")->putFile('profile_kaprodi',$validate->file('photo_kaprodi'));
-        Prodi::create([
-            'fakultas_id' => $validate->fakultas_id,
-            'nama_prodi' => $validate->nama_prodi,
-            'nama_kaprodi' => $validate->nama_kaprodi,
-            'photo_kaprodi' => $filePath
-        ]);
+        if ($request->hasFile('photo_kaprodi')) {
+            $path = Storage::disk('public')->putFile('profile_kaprodi', $request->file('photo_kaprodi'));
+            $data['photo_kaprodi'] = $path;
+        }
 
-        return redirect('/prodi')->with("Success", "Prodi Berhasil Ditambah");
+        Prodi::create($data);
+        return redirect('/prodi')->with('Success', 'Prodi berhasil ditambahkan!');
     }
 
     /**
@@ -60,7 +56,8 @@ class ProdiController extends Controller
      */
     public function edit(Prodi $prodi)
     {
-        //
+        $fakultas = Fakultas::all();
+        return view('prodi.edit-prodi',compact('prodi','fakultas'));
     }
 
     /**
@@ -68,7 +65,21 @@ class ProdiController extends Controller
      */
     public function update(UpdateProdiRequest $request, Prodi $prodi)
     {
-        //
+        $data = $request->validated();
+        if ($request->hasFile('photo_kaprodi')) {
+        // Hapus foto lama kalau ada
+        if ($prodi->photo_kaprodi) {
+            Storage::disk('public')->delete($prodi->photo_kaprodi);
+        }
+            // Upload foto baru
+            $path = Storage::disk('public')->putFile('profile_kaprodi', $request->file('photo_kaprodi'));
+            $data['photo_kaprodi'] = $path;
+        } else {
+            // Tidak ganti foto, pakai yang lama
+            unset($data['photo_kaprodi']);
+        }
+        $prodi->update($data);
+        return redirect('/prodi')->with('Success','Prodi Berhasil Diupdate!');
     }
 
     /**
@@ -76,6 +87,11 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+        // hapus foto bila ada
+        if($prodi->photo_kaprodi){
+            Storage::disk('public')->delete($prodi->photo_kaprodi);
+        }
+        $prodi->delete();
+        return redirect('/prodi')->with('Success','Prodi Berhasil Dihapus!');
     }
 }
