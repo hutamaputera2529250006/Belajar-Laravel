@@ -65,6 +65,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('fakultas.create') ? 'active bg-primary text-white' : '' }}" href="/fakultas/create">Tambah Fakultas</a>
                     </li>
+                    <form action="/logout" method="post">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
                 </ul>
             </div>
 
@@ -86,7 +89,7 @@
 
     {{-- Footer --}}
     <footer class="bg-body-tertiary text-center py-3 mt-auto">
-        <small class="text-muted">© {{ date('Y') }} IF21 — Informatika 2021</small>
+        <small class="text-muted">© {{ date('Y') }} IF21 — Informatika 2026</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
