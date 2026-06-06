@@ -32,6 +32,8 @@ class FortifyServiceProvider extends ServiceProvider
                         if($request->expectsJson()){
                             return response()->json([
                                 'success'=> true,
+                                'user' => $request->user(),
+                                'token'=>$request->user()->createToken('api')->plainTextToken
                             ]);
                         }
                         return redirect()->intended(Fortify::redirects('register'));

@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "079ad630-edb4-4c1e-9e7e-1cf57a42ca9e",
+    "name": "IF21-2026",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55145394",
+    "_collection_link": "https://go.postman.co/collection/55145394-079ad630-edb4-4c1e-9e7e-1cf57a42ca9e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\" : \"Hutama\",\r\n    \"email\" : \"gleen@gleen.com\",\r\n    \"password\" : \"123456789\",\r\n    \"password_confirmation\" : \"123456789\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/register",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CSRF",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const csrf = pm.cookies.get('XSRF-TOKEN')\r",
+              "\r",
+              "pm.environment.set('TOKEN', decodeURIComponent(csrf))"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/sanctum/csrf-cookie",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "sanctum",
+            "csrf-cookie"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "X-XSRF-TOKEN",
+            "value": "{{TOKEN}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\" : \"tes@postyes.com\",\r\n    \"password\" : \"123456789\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/login",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Api",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer 3|0l2TA7fpx66xgpdxlFBL5oVypACJ8uS3TbQALNh454a0208b",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/api/prodi",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "prodi"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
