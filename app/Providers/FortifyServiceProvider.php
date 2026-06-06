@@ -14,7 +14,8 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use Laravel\Fortify\Fortify;
-use Laravel\Fortify\Http\Responses\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,6 @@ class FortifyServiceProvider extends ServiceProvider
                 };
             }
         );
-
         $this->app->singleton(
             LoginResponseContract::class,
             function(){
@@ -48,7 +48,7 @@ class FortifyServiceProvider extends ServiceProvider
                             return response()->json([
                                 'success'=> true,
                                 'user' => $request->user(),
-                                'token'=>$request->user->createToken('api')->plainTextToken
+                                'token'=>$request->user()->createToken('api')->plainTextToken
                             ]);
                         }
                         return redirect()->intended(Fortify::redirects('login'));
